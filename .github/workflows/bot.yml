@@ -1,0 +1,25 @@
+name: Check logement
+
+on:
+  schedule:
+    - cron: "*/1 * * * *"  
+  workflow_dispatch:       # permite rodar manualmente
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v3
+
+      - name: Instalar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Instalar dependências
+        run: pip install -r requirements.txt
+
+      - name: Rodar script
+        run: python main.py
