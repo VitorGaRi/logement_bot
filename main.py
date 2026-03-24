@@ -7,6 +7,9 @@ TEXTO = "Aucun logement disponibles"
 TOKEN = os.getenv("TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
 
+print("TOKEN:", TOKEN)
+print("CHAT_ID:", CHAT_ID)
+
 def enviar(msg):
     url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
     response = requests.post(url, data={"chat_id": CHAT_ID, "text": msg})
