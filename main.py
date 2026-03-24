@@ -9,7 +9,10 @@ CHAT_ID = os.getenv("CHAT_ID")
 
 def enviar(msg):
     url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
-    requests.post(url, data={"chat_id": CHAT_ID, "text": msg})
+    response = requests.post(url, data={"chat_id": CHAT_ID, "text": msg})
+    
+    print("Status code:", response.status_code)
+    print("Resposta:", response.text)
 
 def check():
     headers = {"User-Agent": "Mozilla/5.0"}
