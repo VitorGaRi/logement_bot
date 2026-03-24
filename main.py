@@ -3,7 +3,7 @@ import os
 import time
 
 URL = "https://www.studefi.fr/main.php?srv=Residence&op=show&cdGroupe=801G"
-TEXTO = "Aucun logement disponible"
+TEXTO = "test"
 
 TOKEN = os.getenv("TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
