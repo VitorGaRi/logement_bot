@@ -1,13 +1,11 @@
 import requests
-import time
-
-FREQUENCIA = 15  # segundos entre cada verificação
+import os
 
 URL = "https://www.studefi.fr/main.php?srv=Residence&op=show&cdGroupe=801G"
 TEXTO = "Aucun logement disponible"
 
-TOKEN = "8721057763:AAFTvG9NbWwmyIQMdW6wZDoBw0ojDsnVTZ8"
-CHAT_ID = "8547911301"
+TOKEN = os.getenv("TOKEN")
+CHAT_ID = os.getenv("CHAT_ID")
 
 def enviar(msg):
     url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
@@ -18,28 +16,17 @@ def check():
     r = requests.get(URL, headers=headers, timeout=10)
     return TEXTO in r.text
 
-ja_notificou = False
-count = 0
+print("Verificando disponibilidade...")
 
-while True:
-    print("Verificando disponibilidade...")
-    try:
-        indisponivel = check()
+try:
+    indisponivel = check()
 
-        if not indisponivel and not ja_notificou:
-            print("🚨 LOGEMENT DISPONÍVEL!!!")
-            enviar("🚨 LOGEMENT DISPONÍVEL!!!")
-            ja_notificou = True
-        if indisponivel:
-            print("Nada ainda...")
-        if ja_notificou:
-            count += 1
-            print("Já notificado, contador:", count)
-            if count % 3 == 0:  # Reenvia a cada 3 verificações para lembrar
-                ja_notificou = False  # reset para permitir nova notificação se voltar a ficar
-                count = 0  # reset do contador
+    if not indisponivel:
+        print("🚨 LOGEMENT DISPONÍVEL!!!")
+        enviar("🚨 LOGEMENT DISPONÍVEL!!!")
 
-    except Exception as e:
-        print("Erro:", e)
+    else:
+        print("Nada ainda...")
 
-    time.sleep(FREQUENCIA) 
+except Exception as e:
+    print("Erro:", e)
