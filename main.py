@@ -2,7 +2,7 @@ import requests
 import os
 
 URL = "https://www.studefi.fr/main.php?srv=Residence&op=show&cdGroupe=801G"
-TEXTO = "Aucun logement disponible"
+TEXTO = "Aucun logement disponibles"
 
 TOKEN = os.getenv("TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
